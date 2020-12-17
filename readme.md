@@ -1,31 +1,33 @@
-<!-- Aceptar todas las opciones -->
+## Procesos de npm usados a lo largo del desarrollo
+
+Aceptar todas las opciones -->
 > npm init -y
 
-<!-- framework de nodejs -->
+framework de nodejs -->
 > npm i express 
 
-<!-- modo producion -->
-npm i nodemon -g
+modo producion, autorecargable al realizar un cambio en el codigo -->
+> npm i nodemon -g
 
 nodemom index.js
 
-<!-- variables globales -->
-npm i dotenv
+variables globales -->
+> npm i dotenv
 
-<!-- util para validar request o envio del cliente -->
-npm i express-validator
+util para validar request o envio del cliente -->
+> npm i express-validator
 
-<!-- simmplificando mongodb -->
-npm i mongoose
+simmplificando mongodb -->
+> npm i mongoose
 
-<!-- encriptacion de password -->
-npm i bcryptjs
+encriptacion de password -->
+> npm i bcryptjs
 
-<!-- Autenticacion -->
-npm i jsonwebtoken
+Autenticacion -->
+> npm i jsonwebtoken
 
-<!-- Sirve para restringir, es una capa de seguridad -->
-npm i cors
+Sirve para restringir, es una capa de seguridad -->
+> npm i cors
 
 
 express-jwt 
