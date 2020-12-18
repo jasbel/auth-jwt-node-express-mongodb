@@ -1,5 +1,14 @@
+/**
+ * Codigo simple para usar JWT, 
+ * @module helpers/jwt
+ * @see  middleware/validate-jwt
+*/
 const jwt = require("jsonwebtoken");
 
+/**
+ * Funcion para generar un nuevo token con json web token 
+ * @type {{uid: string, name: string}}
+ * */
 const generateJWT = (uid, name) => {
   return new Promise((resolve, reject) => {
     const payload = { uid, name };
@@ -27,6 +36,9 @@ const generateJWT = (uid, name) => {
   });
 };
 
+/** 
+ * Exportar la funcion generateJWT
+ */
 module.exports = {
   generateJWT,
 };

@@ -1,3 +1,8 @@
+/**
+ * Validacion de los datos con JWT
+ * @module middleware/validate-jwt
+*/
+
 const { response } = require('express');
 const jwt = require('jsonwebtoken');
 

@@ -1,0 +1,17 @@
+{
+    "plugins": [],
+    "source": {
+        "include": ["middlewares", "controllers","database", "helpers", "models","routes","index.js"],
+        "includePattern": ".js$",
+        "excludePattern": "(node_modules|docs)"
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinls": false
+    },
+    "opts": {
+        "recurse": "true",
+        "destination": "./docs",
+        "readme": "./readme.md"
+    }
+}

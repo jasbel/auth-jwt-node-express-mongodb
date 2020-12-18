@@ -1,5 +1,11 @@
+/**
+ * Codigo para la conexion a la base de datos
+ * @module database/config
+ */
+
 const mongoose = require('mongoose');
 
+/** Funcion para conectar a la DB */
 const dbConnection = async() => {
     try {
         await mongoose.connect(process.env.DB_CNN, {

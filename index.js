@@ -1,10 +1,17 @@
+/**
+ * Archivo principal
+ * @module indexjs
+ * @todo add CRUD: eventos
+ */
+
+/** Creacion del servidor express */
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
 const { dbConnection } = require('./database/config');
 // const jwt = require('express-jwt');
 
-/** Creacion del servidor express */
+
 const app = express();
 
 /** Base de Datos */
@@ -23,7 +30,6 @@ app.use( express.json() );
 
 /** Rutas : Autenticacion */
 app.use('/api/auth/', require('./routes/auth'));
-
 
 
 // TODO: CRUD: eventos
