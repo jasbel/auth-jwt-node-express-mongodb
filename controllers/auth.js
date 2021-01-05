@@ -7,7 +7,7 @@
 
 const { response } = require("express");
 const bcrypt = require('bcryptjs');
-const Usuario = require("../models/user");
+const Usuario = require("../models/User");
 const { generateJWT } = require("../helpers/jwt");
 
 /** response: para tener la intellisense a disposicion 
