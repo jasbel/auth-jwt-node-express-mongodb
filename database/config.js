@@ -6,13 +6,13 @@
 const mongoose = require('mongoose');
 
 /** Funcion para conectar a la DB */
-const dbConnection = async() => {
+const dbConnection = async () => {
     try {
         await mongoose.connect(process.env.DB_CNN, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false
+            // useNewUrlParser: true,
+            // useUnifiedTopology: true,
+            // useCreateIndex: true,
+            // useFindAndModify: false
         });
 
         console.log('DB Online');

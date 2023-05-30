@@ -1,22 +1,21 @@
 const { Schema, model } = require('mongoose');
 
-const UsuarioSchema = Schema({
-
-    /* Estructura de los datos tipos, requerido y la llave(unique) */
+const UserSchema = Schema({
     name: {
         type: String,
         required: true,
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
     password: {
         type: String,
         required: true,
-    }
+    },
 });
+/** ver en JSON */
+UserSchema.method('toJSON', function () {
+    const { _v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+})
 
 /** TODO: Averiguar porque la exportacion pasa por mongoose.model */
-module.exports = model('Usuario', UsuarioSchema )
+module.exports = model('User', UserSchema)

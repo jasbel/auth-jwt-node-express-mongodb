@@ -7,8 +7,9 @@
 
 const { response } = require("express");
 const bcrypt = require('bcryptjs');
-const Usuario = require("../models/User");
-const { generateJWT } = require("../helpers/jwt");
+const Usuario = require("./user.model");
+const { generateJWT } = require("../../helpers/jwt");
+const { processResponse, typeResponse } = require("../../utils");
 
 /** response: para tener la intellisense a disposicion 
  * @function createUser
@@ -17,17 +18,17 @@ const { generateJWT } = require("../helpers/jwt");
  * @returns Responde si existe o no el usuario, reenvia los datos si todo se realizo correctamente
 */
 const createUser = async (req, res = response) => {
-  
+
   /** Desestructuracion del body */
-  const { email, password } = req.body;
+  const { name, password } = req.body;
 
   try {
 
     /** mandara una peticion a mongodb retornando los datos o null */
-    let user = await Usuario.findOne({ email });
+    let user = await Usuario.findOne({ name });
 
-    /** En caso que mongodb detecte un usuario con el mismo email alertara */
-    if ( user ) {
+    /** En caso que mongodb detecte un usuario con el mismo name alertara */
+    if (user) {
       return res.status(400).json({
         ok: false,
         msg: 'Un usuario ya existe con ese correo',
@@ -38,15 +39,15 @@ const createUser = async (req, res = response) => {
     user = new Usuario(req.body);
 
     /** Encriptacion de contrasenia */
-    const salt = bcrypt.genSaltSync(  );
-    user.password = bcrypt.hashSync( password, salt );
+    const salt = bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(password, salt);
 
     await user.save();
 
     /** 
      * Generar JWT al crear usuario {@link generateJWT} 
      * */
-    const token = await generateJWT( user.id, user.name );
+    const token = await generateJWT(user.id, user.name);
 
     /* Validacion de datos usando express.validator ver validate-fields */
 
@@ -66,25 +67,25 @@ const createUser = async (req, res = response) => {
   }
 };
 
-const loginUser = async(req, res = response) => {
-  const { email, password } = req.body;
+const loginUser = async (req, res = response) => {
+  const { name, password } = req.body;
 
   try {
 
-    let user = await Usuario.findOne({ email });
+    let user = await Usuario.findOne({ name });
 
     /** si usuario no existe lanzar una advertencia */
-    if ( !user ) {
+    if (!user) {
       return res.status(400).json({
         ok: false,
-        msg: 'email incorrecto',
+        msg: 'name incorrecto',
       });
     }
 
     /** Confirmar contrasenias, desencripta y compara valores */
-    const validPassword = bcrypt.compareSync( password, user.password );
+    const validPassword = bcrypt.compareSync(password, user.password);
 
-    if ( !validPassword ) {
+    if (!validPassword) {
       return res.status(400).json({
         ok: false,
         msg: 'Password Incorrecto'
@@ -92,14 +93,22 @@ const loginUser = async(req, res = response) => {
     }
 
     /** Generar el JWT al loguearse {@link generateJWT} */
-    const token = await generateJWT( user.id, user.name );
+    const token = await generateJWT(user.id, user.name);
 
-    res.json({
-      ok: true,
-      uid: user.id,
+    res.json(processResponse(typeResponse.login, [{
+      id: user.id,
       name: user.name,
-      token
-    })
+      token,
+      "permissions": [
+        "user_delete",
+        "user_update",
+        "user_create",
+        "user_list",
+      ],
+      "modules": {
+        "user": "user",
+      }
+    }]))
 
   } catch (error) {
     console.error(error);
@@ -111,12 +120,12 @@ const loginUser = async(req, res = response) => {
 
 };
 
-const renewToken = async(req, res = response) => {
+const renewToken = async (req, res = response) => {
 
   const { uid, name } = req;
 
   /** Generar un nuevo JWT y retornar {@link generateJWT} */
-  const token = await generateJWT( uid, name );
+  const token = await generateJWT(uid, name);
 
   /** Responder a la peticion de renovacion de token */
   res.json({

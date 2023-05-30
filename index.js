@@ -29,15 +29,15 @@ app.use( express.json() );
 
 
 /** Rutas : Autenticacion */
-app.use('/api/auth/', require('./routes/auth'));
-app.use('/api/events/', require('./routes/events'));
+app.use('/api/auth/', require('./modules/auth/auth.routes'));
 
 
-// TODO: CRUD: eventos
+app.use('/api/events/', require('./modules/event/events.routes'));
+app.use('/api/users/', require('./modules/user/user.routes'));
 
 
  /** Escuchar el puerto */
  app.listen(process.env.PORT, () => {
-     console.log(`Server corriendo en el puerto ${ 4000 } `);
+     console.log(`Server corriendo en el puerto ${ process.env.PORT } `);
  });
 

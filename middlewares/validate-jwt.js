@@ -10,9 +10,9 @@ const jwt = require('jsonwebtoken');
 const validateJWT = (req, res = response, next) => {
 
     /** x-token headers */
-    const token = req.header('x-token');
+    /* const token = req.header('token');
 
-    if( !token) {
+    if (!token) {
         return res.status(401).json({
             ok: false,
             msg: 'No hay toque de la peticion',
@@ -36,7 +36,7 @@ const validateJWT = (req, res = response, next) => {
             msg: 'Token no valido',
         });
     }
-
+ */
     next();
 }
 

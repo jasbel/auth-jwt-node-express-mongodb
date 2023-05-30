@@ -5,10 +5,10 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { validateFields } = require('../middlewares/validate-fields');
-const { validateJWT } = require('../middlewares/validate-jwt');
-const { getEventos, crearEvento, actualizarEvento, eliminarEvento } = require('../controllers/events');
-const { isDate } = require('../helpers/isDate');
+const { validateFields } = require('../../middlewares/validate-fields');
+const { validateJWT } = require('../../middlewares/validate-jwt');
+const { getEventos, crearEvento, actualizarEvento, eliminarEvento } = require('./events.controller');
+const { isDate } = require('../../helpers/isDate');
 
 const router = Router();
 
